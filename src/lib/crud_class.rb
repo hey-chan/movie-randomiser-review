@@ -40,10 +40,10 @@ class Crud
         @movies << movie
     end    
 
-    # def get_movies
-    #     load_data()
-    #     return @movies
-    # end
+    def get_films
+        load_data()
+        return @movies
+    end
 
     def delete(movieTitle, year)
         @movies.delete_if { |movieObj| 

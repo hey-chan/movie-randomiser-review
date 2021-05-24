@@ -59,24 +59,27 @@ class Welcome
     case input
     when 1
       system "clear"
-      if @crud.get_movies.size == 0
+      if @crud.get_films.size == 0
         puts "There is no movie on the list."
         if @prompt.yes? ("Would you like to add a movie to the list?")
           puts "Enter a movie to add to list"
           print "> "
           film = {}
-          film_name = gets.chomp
+
           @crud.add_movie(film_name)
           film[:movie_name] = film_name
-          @crud.save(film)
-
+          film_name = gets.chomp
+          
+          
           puts "Who suggested this movie?"
           print "> "
-          suggestion = {}
+          
           suggestion_name = gets.chomp
+          puts "#{film_name} has been added by #{suggestion_name}"
           @crud.add_movie(suggestion_name)
-          suggestion[:suggestedby] = suggestion_name
-          @crud.save(suggestion)
+          film[:suggestedby] = suggestion_name
+
+          @crud.save(film)
           # @crud.save(film)
           # puts "#{film} has been added"
         # else
@@ -85,8 +88,9 @@ class Welcome
       else 
         system "clear"
         puts "View the movie list"
-        film_name.each do |movies|
-        puts " • #{movies}"
+        movies = @crud.get_films()
+        movies.each do |item|
+        puts " • Movie name: #{item[:movie_name]}, Suggested by: #{item[:suggestedby]}"
 
       end
         # if prompt.yes? ("Would you like to add a movie to the list?")
@@ -95,11 +99,68 @@ class Welcome
     end
     when 2
       system "clear"
-      puts "Enter a movie to add to list"
-      print "> "
+      puts "
+        _________________________________
+        |                               |
+        |                               |
+        |                               |
+        | Enter a movie to add to list  |
+        |                               |
+        |                               |
+        |                               |
+        '-------------------------------'
+        
+              (~~) (~~) (~~) (~~)
+              _)(___)(___)(___)(_
+            (~~) (~~) (~~) (~~) (~~)
+            _)(___)(___)(___)(___)(_
+        (~~) (~~) (~~) (~~) (~~) (~~)
+        _)(___)(___)(___)(___)(___)(_
+        |    |    |    |    |    |    |
+        |    |    |    |    |    |    |
+        ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
+        `'     `'     `'     `'      `'    
+        "
+      film = {}
+      print "            > "
+
       film_name = gets.chomp
-      films_to_watch << film_name
-      puts "#{film_name} has been added"
+      @crud.add_movie(film_name)
+      film[:movie_name] = film_name
+      
+      system "clear"
+      puts "
+        _________________________________
+        |                               |
+        |                               |
+        |                               |
+        |   Who suggested this movie?   |
+        |                               |
+        |                               |
+        |                               |
+        '-------------------------------'
+                 
+
+              (~~) (~~) (~~) (~~)
+              _)(___)(___)(___)(_
+            (~~) (~~) (~~) (~~) (~~)
+            _)(___)(___)(___)(___)(_
+        (~~) (~~) (~~) (~~) (~~) (~~)
+        _)(___)(___)(___)(___)(___)(_
+        |    |    |    |    |    |    |
+        |    |    |    |    |    |    |
+        ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
+        `'     `'     `'     `'      `'    
+        "
+    
+      print "            > "
+      suggestion_name = gets.chomp
+      puts
+      puts "#{film_name} has been added by #{suggestion_name}"
+      @crud.add_movie(suggestion_name)
+      film[:suggestedby] = suggestion_name
+
+      @crud.save(film)
     when 3
       system "clear"
       # cap_film = films_to_watch.split.map(&:capitalize).join(' ')
@@ -111,10 +172,10 @@ class Welcome
       # puts "The random movie is: #{cap_film}"
     when 4
       system "clear"
-      choose = films_to_watch, ["Cancel and go back"]
-        @prompt.select("What movie do you want to delete?", choose, cycle: true)
-      # choose.delete_at(delete_film)
-      puts "film has been deleted"
+      # choose = films_to_watch, ["Cancel and go back"]
+      #   @prompt.select("What movie do you want to delete?", choose, cycle: true)
+      # # choose.delete_at(delete_film)
+      # puts "film has been deleted"
     when 5
       puts "Add a movie review"
     when 6
