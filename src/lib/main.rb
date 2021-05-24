@@ -64,98 +64,48 @@ class Welcome
         if @prompt.yes? ("Would you like to add a movie to the list?")
           puts "Enter a movie to add to list"
           print "> "
-          film = {}
 
-          @crud.add_movie(film_name)
-          film[:movie_name] = film_name
+          film = {}
           film_name = gets.chomp
-          
+          puts "#{film_name} has been added"
+          @crud.add_movie(film_name)
+          film[:moviename] = film_name
           
           puts "Who suggested this movie?"
           print "> "
-          
           suggestion_name = gets.chomp
           puts "#{film_name} has been added by #{suggestion_name}"
           @crud.add_movie(suggestion_name)
           film[:suggestedby] = suggestion_name
 
           @crud.save(film)
-          # @crud.save(film)
-          # puts "#{film} has been added"
-        # else
-        #   menu(prompt)
         end
       else 
         system "clear"
         puts "View the movie list"
         movies = @crud.get_films()
         movies.each do |item|
-        puts " • Movie name: #{item[:movie_name]}, Suggested by: #{item[:suggestedby]}"
+        puts " • Movie name: #{item[:moviename]}, Suggested by: #{item[:suggestedby]}"
 
-      end
         # if prompt.yes? ("Would you like to add a movie to the list?")
         #   puts "Enter a movie to add to list"
         # end
+      end
     end
     when 2
       system "clear"
-      puts "
-        _________________________________
-        |                               |
-        |                               |
-        |                               |
-        | Enter a movie to add to list  |
-        |                               |
-        |                               |
-        |                               |
-        '-------------------------------'
-        
-              (~~) (~~) (~~) (~~)
-              _)(___)(___)(___)(_
-            (~~) (~~) (~~) (~~) (~~)
-            _)(___)(___)(___)(___)(_
-        (~~) (~~) (~~) (~~) (~~) (~~)
-        _)(___)(___)(___)(___)(___)(_
-        |    |    |    |    |    |    |
-        |    |    |    |    |    |    |
-        ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
-        `'     `'     `'     `'      `'    
-        "
+      puts "Enter a movie to add to list"
+      print "> "
+
       film = {}
-      print "            > "
-
       film_name = gets.chomp
+      puts "#{film_name} has been added"
       @crud.add_movie(film_name)
-      film[:movie_name] = film_name
+      film[:moviename] = film_name
       
-      system "clear"
-      puts "
-        _________________________________
-        |                               |
-        |                               |
-        |                               |
-        |   Who suggested this movie?   |
-        |                               |
-        |                               |
-        |                               |
-        '-------------------------------'
-                 
-
-              (~~) (~~) (~~) (~~)
-              _)(___)(___)(___)(_
-            (~~) (~~) (~~) (~~) (~~)
-            _)(___)(___)(___)(___)(_
-        (~~) (~~) (~~) (~~) (~~) (~~)
-        _)(___)(___)(___)(___)(___)(_
-        |    |    |    |    |    |    |
-        |    |    |    |    |    |    |
-        ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
-        `'     `'     `'     `'      `'    
-        "
-    
-      print "            > "
+      puts "Who suggested this movie?"
+      print "> "
       suggestion_name = gets.chomp
-      puts
       puts "#{film_name} has been added by #{suggestion_name}"
       @crud.add_movie(suggestion_name)
       film[:suggestedby] = suggestion_name
@@ -172,10 +122,10 @@ class Welcome
       # puts "The random movie is: #{cap_film}"
     when 4
       system "clear"
-      # choose = films_to_watch, ["Cancel and go back"]
-      #   @prompt.select("What movie do you want to delete?", choose, cycle: true)
-      # # choose.delete_at(delete_film)
-      # puts "film has been deleted"
+      choose = films_to_watch, ["Cancel and go back"]
+        @prompt.select("What movie do you want to delete?", choose, cycle: true)
+      # choose.delete_at(delete_film)
+      puts "film has been deleted"
     when 5
       puts "Add a movie review"
     when 6
