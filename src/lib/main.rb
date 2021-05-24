@@ -60,24 +60,90 @@ class Welcome
     when 1
       system "clear"
       if @crud.get_films.size == 0
-        puts "There is no movie on the list."
+        # puts "There is no movie on the list."
+        puts "
+          _________________________________
+          |                               |
+          |                               |
+          |                               |
+          | There is no movie on the list |
+          |                               |
+          |                               |
+          |                               |
+          '-------------------------------'
+                  
+                (~~) (~~) (~~) (~~)
+                _)(___)(___)(___)(_
+              (~~) (~~) (~~) (~~) (~~)
+              _)(___)(___)(___)(___)(_
+          (~~) (~~) (~~) (~~) (~~) (~~)
+          _)(___)(___)(___)(___)(___)(_
+          |    |    |    |    |    |    |
+          |    |    |    |    |    |    |
+          ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
+          `'     `'     `'     `'      `'    
+          "
         if @prompt.yes? ("Would you like to add a movie to the list?")
-          puts "Enter a movie to add to list"
-          print "> "
+          system "clear"
+          puts "
+          _________________________________
+          |                               |
+          |                               |
+          |                               |
+          | Enter a movie to add to list  |
+          |                               |
+          |                               |
+          |                               |
+          '-------------------------------'
+          
+                (~~) (~~) (~~) (~~)
+                _)(___)(___)(___)(_
+              (~~) (~~) (~~) (~~) (~~)
+              _)(___)(___)(___)(___)(_
+          (~~) (~~) (~~) (~~) (~~) (~~)
+          _)(___)(___)(___)(___)(___)(_
+          |    |    |    |    |    |    |
+          |    |    |    |    |    |    |
+          ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
+          `'     `'     `'     `'      `'    
+          "
+          print "            > "
 
           film = {}
           film_name = gets.chomp
-          puts "#{film_name} has been added"
+          # puts "#{film_name} has been added"
           @crud.add_movie(film_name)
           film[:moviename] = film_name
           
-          puts "Who suggested this movie?"
-          print "> "
+          system "clear"
+          puts "
+          _________________________________
+          |                               |
+          |                               |
+          |                               |
+          |   Who suggested this movie?   |
+          |                               |
+          |                               |
+          |                               |
+          '-------------------------------'
+                  
+                (~~) (~~) (~~) (~~)
+                _)(___)(___)(___)(_
+              (~~) (~~) (~~) (~~) (~~)
+              _)(___)(___)(___)(___)(_
+          (~~) (~~) (~~) (~~) (~~) (~~)
+          _)(___)(___)(___)(___)(___)(_
+          |    |    |    |    |    |    |
+          |    |    |    |    |    |    |
+          ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
+          `'     `'     `'     `'      `'    
+          "
+          print "            > "
           suggestion_name = gets.chomp
+          puts ""
           puts "#{film_name} has been added by #{suggestion_name}"
           @crud.add_movie(suggestion_name)
           film[:suggestedby] = suggestion_name
-
           @crud.save(film)
         end
       else 
@@ -94,18 +160,62 @@ class Welcome
     end
     when 2
       system "clear"
-      puts "Enter a movie to add to list"
-      print "> "
+      puts "
+        _________________________________
+        |                               |
+        |                               |
+        |                               |
+        | Enter a movie to add to list  |
+        |                               |
+        |                               |
+        |                               |
+        '-------------------------------'
+        
+              (~~) (~~) (~~) (~~)
+              _)(___)(___)(___)(_
+            (~~) (~~) (~~) (~~) (~~)
+            _)(___)(___)(___)(___)(_
+        (~~) (~~) (~~) (~~) (~~) (~~)
+        _)(___)(___)(___)(___)(___)(_
+        |    |    |    |    |    |    |
+        |    |    |    |    |    |    |
+        ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
+        `'     `'     `'     `'      `'    
+        "
+        print "            > "
 
       film = {}
       film_name = gets.chomp
-      puts "#{film_name} has been added"
+
       @crud.add_movie(film_name)
       film[:moviename] = film_name
       
-      puts "Who suggested this movie?"
-      print "> "
+      system "clear"
+      puts "
+        _________________________________
+        |                               |
+        |                               |
+        |                               |
+        |   Who suggested this movie?   |
+        |                               |
+        |                               |
+        |                               |
+        '-------------------------------'
+                 
+              (~~) (~~) (~~) (~~)
+              _)(___)(___)(___)(_
+            (~~) (~~) (~~) (~~) (~~)
+            _)(___)(___)(___)(___)(_
+        (~~) (~~) (~~) (~~) (~~) (~~)
+        _)(___)(___)(___)(___)(___)(_
+        |    |    |    |    |    |    |
+        |    |    |    |    |    |    |
+        ||~~~~~||~~~~~||~~~~~||~~~~~~|| 
+        `'     `'     `'     `'      `'    
+        "
+      print "            > "
       suggestion_name = gets.chomp
+      puts ""
       puts "#{film_name} has been added by #{suggestion_name}"
       @crud.add_movie(suggestion_name)
       film[:suggestedby] = suggestion_name
