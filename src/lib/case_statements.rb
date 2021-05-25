@@ -104,7 +104,10 @@ class Conditionals
   def delete_movie_on_watch_list
     system "clear"
     if @crud.get_films.size == 0
-        @art.no_movie
+      @art.no_movie
+      sleep 1
+      system "clear"
+      Welcome.new.start_menu
     else
       movies_list
       input = @prompt.ask(' Enter movie to delete from list:', required: true).downcase
@@ -114,11 +117,12 @@ class Conditionals
         if @prompt.yes?("Do you want to delete #{seleted_movie[:moviename]}")
           @crud.get_films.delete(seleted_movie)
           @crud.save_data_to_json
-          system "clear"
+          # system "clear"
           puts "Movie deleted from watch list"
           if @prompt.yes?("Would you like to select another movie to delete?}")
             delete_movie_on_watch_list
           else
+            system "clear"
             Welcome.new.start_menu
           end
         # else
