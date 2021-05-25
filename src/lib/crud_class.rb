@@ -50,12 +50,12 @@ class Crud
   end
 
 
-  def delete_film_on_list(movie_title)
-    @films_to_watch.delete(movie_title)
-          
-    # Saves what's left to json
-    save_data_to_json()
-  end
+  # def delete(film_title)
+  #   @films_to_watch.delete_if { |a| 
+  #   a.get_films[:moviename] == film_title }
+  #   # Save the data
+  #   save_data_to_json()
+  # end
 
   def update(title, year, tag, newData)
     newMovieObj = search_movie_with_year(title, year)
@@ -69,5 +69,6 @@ class Crud
     # Save -  it will hard save in this method
     save(newMovieObj)
   end
-
+  
 end
+
