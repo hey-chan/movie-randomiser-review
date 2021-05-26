@@ -12,7 +12,7 @@ class Review
     @art.review_movies
     choices = [
       {name: "   Add a movie review", value: 1},
-      {name: "   Read a review", value: 2},
+      {name: "   Read and update a review", value: 2},
       {name: "   Delete a review", value: 3},
       {name: "   Go back", value: 4}]
       input = @prompt.select("   Please choose an option:", choices, cycle: true)
@@ -25,7 +25,7 @@ class Review
     when 1
       add_review
     when 2
-      # @conditionals.case_add_film
+      review_list
     when 3
       # @conditionals.random
     when 4
@@ -80,22 +80,44 @@ class Review
     review_menu
   end
 
-    # input_metadata = @prompt.collect do
-    #   key(:movie_title).ask("What movie are you reviewing?")
-    #   key(:review_by).ask("Who?", required: true)
-    #   key(:time).ask("Time?", convert: :int)
-    #   key(:rating).select("What do you rate it?", %w(⭑⭑⭑⭑⭑ ⭑⭑⭑⭑ ⭑⭑⭑ ⭑⭑ ⭑ TBD))
-    #   @art.review_comment
-    #   key(:review)
-    # end
-    # review = {}
-    # review[:movie_title] = input_review
-    # review = input_metadata.merge(movie)
-    # @crud << movie
-    # save_data
-    # system 'clear'
-    # review_menu
+  def review_list
+    system "clear"
+    if @crud.get_review.size == 0
+      @art.no_movie
+      if @prompt.yes? ("Would you like to add a review to the list?")
+        add_review
+      else
+        review_menu
+      end
 
-  # end
+    else
+    people_reviews = @crud.get_review()
+    table = Terminal::Table.new :title => "Movies that have been reviewed" do |t|
+      t << [Rainbow('Movie:').greenyellow, Rainbow('Reviewed by:').royalblue] 
+      people_reviews.each do |item|
+        t.add_separator 
+        t.style = { :border => :unicode_thick_edge }
+        t << [(item[:nameofmovie]), (item[:person_reviewing])]
+      end
+    end
+    puts table
+    input = @prompt.select("Please select an option", cycle: true) do |menu|
+      menu.choice "    Select a review to read", 1
+      menu.choice "    Update a review", 2
+      menu.choice "    Go back", 3
+    end
+    case input
+    when 1
+      
+    when 2
+
+    when 3
+      review_menu
+    end
+  end
+
+
+  end
+
 end
 
