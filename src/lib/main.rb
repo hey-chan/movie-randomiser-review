@@ -24,14 +24,14 @@ class Welcome
       system "clear"
       @art.welcome_menu
       choices = [
-      {name: "View movies to watch", value: 1},
-      {name: "Add a movie to the watch list", value: 2},
-      {name: "Select a random movie from the watch list", value: 3},
-      {name: "Remove a movie from the watch list", value: 4},
-      {name: "Movie reviews", value: 5},
-      {name: "Quit", value: 6}
+      {name: "   View movies to watch", value: 1},
+      {name: "   Add a movie to the watch list", value: 2},
+      {name: "   Select a random movie from the watch list", value: 3},
+      {name: "   Remove a movie from the watch list", value: 4},
+      {name: "   Movie reviews", value: 5},
+      {name: "   Quit", value: 6}
       ]
-      input = @prompt.select("Please choose an option:", choices, cycle: true)
+      input = @prompt.select("   Please choose an option:", choices, cycle: true)
       menu(input)
     end
   end

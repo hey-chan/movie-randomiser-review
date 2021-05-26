@@ -5,6 +5,9 @@ class Crud
     @file_path = "./data/movies.json"
     @films_to_watch = []
     load_data_from_json()
+    @review_path = "./data/reviews.json"
+    @review_list = []
+    load_review()
   end 
 
   # method pushes into array
@@ -19,6 +22,18 @@ class Crud
     add_film_to_list(movie)
     save_data_to_json()
   end
+  
+  # reviews
+  def add_review_to_list(review)
+    @review_list << review
+  end   
+  
+  def review_save(review)
+    load_review()
+    add_review_to_list(review)
+    save_review_json
+  end
+  
 
   # json file loaded with this method
   def load_data_from_json
@@ -28,10 +43,21 @@ class Crud
         movie.transform_keys(&:to_sym)
   end
 
+  # review
+  def load_review
+    data = JSON.parse(File.read("./data/reviews.json"))
+    # transforms array
+    @review_list = data.map do |review|
+        review.transform_keys(&:to_sym)
+  end
+
   # responsible for opening and writing json
   rescue Errno::ENOENT
     File.open(@file_path, 'w+')
     File.write(@file_path, [])
+    retry
+    File.open(@review_list, 'w+')
+    File.write(@review_list, [])
     retry
   end
   
@@ -44,31 +70,22 @@ class Crud
   def save_data_to_json()
     File.write(@file_path, @films_to_watch.to_json)
   end
-
+  
   def clear_data()
     File.open(@file_path, 'w') {|file| file.truncate(0) }
   end
-
-
-  # def delete(film_title)
-  #   @films_to_watch.delete_if { |a| 
-  #   a.get_films[:moviename] == film_title }
-  #   # Save the data
-  #   save_data_to_json()
-  # end
-
-  def update(title, year, tag, newData)
-    newMovieObj = search_movie_with_year(title, year)
-
-    # Delete the old movie with old data
-    delete(title, year)
-
-    # Overwrite the old data
-    newMovieObj[tag.to_sym] = newData
-
-    # Save -  it will hard save in this method
-    save(newMovieObj)
-  end
   
+
+  # review
+  def save_review_json()
+    File.write(@review_path , @review_list.to_json)
+  end
+
+  def get_review
+    load_review()
+    return @review_list
+  end
 end
+end
+    
 
