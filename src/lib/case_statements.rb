@@ -49,32 +49,33 @@ class Conditionals
   def case_add_film
     system "clear"
     @art.movie_to_add
-      print "          > "
-
     film = {}
-    film_name = gets.chomp
+    film_name =  @prompt.ask("          > ", required: true)
+    if @crud.get_films.any? { |movie| movie[:moviename].downcase == film_name}
+      puts "This movie is already in your watch list"
+      if @prompt.yes?("Would you like to add another movie to the watch list?")
+        case_add_film
+      else 
+        system "clear"
+        Welcome.new.start_menu
+      end
+    else
+      film[:moviename] = film_name
+      @crud.add_film_to_list(film_name)
+      system "clear"
 
-    @crud.add_film_to_list(film_name)
-    film[:moviename] = film_name
-    
-    system "clear"
-    @art.who_suggested_it
-    print "          > "
-    suggestion_name = gets.chomp
-    puts ""
-    puts "#{film_name} has been added by #{suggestion_name}"
-    @crud.add_film_to_list(suggestion_name)
-    film[:suggestedby] = suggestion_name
-    @crud.save(film)
-    sleep 2
-    system "clear"
-  end
+      @art.who_suggested_it
+      suggestion_name =  @prompt.ask("          > ", required: true)
+      puts ""
+      puts "#{film_name} has been added by #{suggestion_name}"
 
-  def leave_app
-    puts @big_font.asciify('Good bye')
-    puts "          Thanks for using this app"
-    puts "               © Matthew Liu"
-    exit
+      @crud.add_film_to_list(suggestion_name)
+      film[:suggestedby] = suggestion_name
+      @crud.save(film)
+      sleep 2
+      system "clear"
+    end
+
   end
 
   def random
@@ -90,7 +91,7 @@ class Conditionals
 
       random_movie = @crud.get_films()
       puts "    The random movie is: #{random_movie.sample[:moviename]}"
-      puts "================================"
+      puts "============================================"
       puts "Would you like to generate another random movie?"
       if @prompt.yes? ("Y: randomly generate a new movie/N: go back to menu")
         random
@@ -118,15 +119,15 @@ class Conditionals
           @crud.get_films.delete(seleted_movie)
           @crud.save_data_to_json
           # system "clear"
-          puts "Movie deleted from watch list"
+          puts "#{seleted_movie[:moviename]} has been deleted from watch list"
           if @prompt.yes?("Would you like to select another movie to delete?}")
             delete_movie_on_watch_list
           else
             system "clear"
             Welcome.new.start_menu
           end
-        # else
-        #   delete_movie_on_watch_list
+        else
+          delete_movie_on_watch_list
         end
       elsif @crud.get_films.size == 0
         @art.no_movie
@@ -135,10 +136,18 @@ class Conditionals
         if @prompt.yes?('Would you like to select a movie to delete')
           delete_movie_on_watch_list
         else
+          system "clear"
           Welcome.new.start_menu
         end
       end
     end
     sleep 1.5
+  end
+
+  def leave_app
+    system "clear"
+    puts @art.closing_credit
+    sleep 1
+    exit
   end
 end
