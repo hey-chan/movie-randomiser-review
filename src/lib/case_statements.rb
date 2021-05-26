@@ -1,23 +1,14 @@
-require_relative "crud_class"
-require_relative "ascii_art"
-require "artii"
-require "terminal-table"
-require "tty-reader"
-require 'progress_bar'
-
 class Conditionals
   def initialize
     @prompt = TTY::Prompt.new
     @crud = Crud.new
     @art = Art.new
-    @big_font = Artii::Base.new :font => 'slant'
-    @bar = ProgressBar.new(:bar, :percentage)
   end
 
   def movies_list
     movies = @crud.get_films()
-    table = Terminal::Table.new :title => "#{@art.watch_movie}" do |t|
-      t << [('Movie:'), ('Suggested by:')] 
+    table = Terminal::Table.new :title => "#{Rainbow(@art.watch_movie).honeydew}" do |t|
+      t << [Rainbow('Movie:').salmon, Rainbow('Suggested by:').seagreen] 
       movies.each do |item|
         t.add_separator 
         t.style = { :border => :unicode_thick_edge }
@@ -34,7 +25,6 @@ class Conditionals
       if @prompt.yes? ("Would you like to add a movie to the list?")
         case_add_film
       else
-        system "clear"
         Welcome.new.start_menu
       end
 
@@ -42,7 +32,6 @@ class Conditionals
       movies_list
       puts "Press any key to go back to main menu"
       menu = gets.chomp
-      system "clear"
     end
   end
   
@@ -51,12 +40,12 @@ class Conditionals
     @art.movie_to_add
     film = {}
     film_name =  @prompt.ask("          > ", required: true)
-    if @crud.get_films.any? { |movie| movie[:moviename].downcase == film_name}
+    # avoids duplicates, whether entirely upcase, downcase or mix of both
+    if @crud.get_films.any? { |movie| movie[:moviename].downcase == film_name || movie[:moviename].upcase == film_name || movie[:moviename].capitalize == film_name }
       puts "This movie is already in your watch list"
       if @prompt.yes?("Would you like to add another movie to the watch list?")
         case_add_film
       else 
-        system "clear"
         Welcome.new.start_menu
       end
     else
@@ -67,13 +56,12 @@ class Conditionals
       @art.who_suggested_it
       suggestion_name =  @prompt.ask("          > ", required: true)
       puts ""
-      puts "#{film_name} has been added by #{suggestion_name}"
+      puts "#{Rainbow(film_name).aquamarine} has been added by #{Rainbow(suggestion_name).lightblue}"
 
       @crud.add_film_to_list(suggestion_name)
       film[:suggestedby] = suggestion_name
       @crud.save(film)
       sleep 2
-      system "clear"
     end
 
   end
@@ -82,21 +70,20 @@ class Conditionals
     if @crud.get_films.size == 0
       system "clear"
       @art.no_movie
-      sleep 1.5
-      system "clear"
+      sleep 1.1
+      Welcome.new.start_menu
     else
       system "clear"
       @art.random_film_to_watch
       sleep 1.5
 
       random_movie = @crud.get_films()
-      puts "    The random movie is: #{random_movie.sample[:moviename]}"
+      puts "    The random movie is: #{Rainbow(random_movie.sample[:moviename]).plum}"
       puts "============================================"
       puts "Would you like to generate another random movie?"
       if @prompt.yes? ("Y: randomly generate a new movie/N: go back to menu")
         random
       else
-        system "clear"
         Welcome.new.start_menu
       end
     end
@@ -107,23 +94,20 @@ class Conditionals
     if @crud.get_films.size == 0
       @art.no_movie
       sleep 1
-      system "clear"
       Welcome.new.start_menu
     else
       movies_list
-      input = @prompt.ask(' Enter movie to delete from list:', required: true).downcase
+      input = @prompt.ask("Enter movie to delete from watch list:", required: true).downcase
       if @crud.get_films.any? { |movie| movie[:moviename].downcase == input}
         puts ''
         seleted_movie = @crud.get_films.find { |movie| movie[:moviename].downcase == input}
-        if @prompt.yes?("Do you want to delete #{seleted_movie[:moviename]}")
+        if @prompt.yes?("Do you want to delete #{Rainbow(seleted_movie[:moviename]).aquamarine}")
           @crud.get_films.delete(seleted_movie)
           @crud.save_data_to_json
-          # system "clear"
-          puts "#{seleted_movie[:moviename]} has been deleted from watch list"
+          puts "#{Rainbow(seleted_movie[:moviename]).red} has been deleted from watch list"
           if @prompt.yes?("Would you like to select another movie to delete?}")
             delete_movie_on_watch_list
           else
-            system "clear"
             Welcome.new.start_menu
           end
         else
@@ -132,11 +116,10 @@ class Conditionals
       elsif @crud.get_films.size == 0
         @art.no_movie
       else
-        puts 'Movie is not on the watch list.'
+        puts "#{input} is not on the watch list."
         if @prompt.yes?('Would you like to select a movie to delete')
           delete_movie_on_watch_list
         else
-          system "clear"
           Welcome.new.start_menu
         end
       end

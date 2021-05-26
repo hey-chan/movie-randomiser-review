@@ -1,8 +1,8 @@
 require "json"
 
-class Crud 
+class CrudReview
   def initialize
-    @file_path = "./data/movies.json"
+    @file_path = "./data/reviews.json"
     @films_to_watch = []
     load_data_from_json()
   end 
@@ -22,7 +22,7 @@ class Crud
 
   # json file loaded with this method
   def load_data_from_json
-    data = JSON.parse(File.read("./data/movies.json"))
+    data = JSON.parse(File.read("./data/reviews.json"))
     # transforms array
     @films_to_watch = data.map do |movie|
         movie.transform_keys(&:to_sym)
@@ -71,4 +71,3 @@ class Crud
   end
   
 end
-
