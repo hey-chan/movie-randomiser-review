@@ -108,12 +108,12 @@ class Conditionals
       input = @prompt.ask("  Enter movie to delete from watch list:", required: true).downcase
       if @crud.get_films.any? { |movie| movie[:moviename].downcase == input}
         puts ''
-        seleted_movie = @crud.get_films.find { |movie| movie[:moviename].downcase == input}
-        if @prompt.yes?("  Do you want to delete #{Rainbow(seleted_movie[:moviename]).aquamarine}")
-          @crud.get_films.delete(seleted_movie)
+        selected_movie = @crud.get_films.find { |movie| movie[:moviename].downcase == input}
+        if @prompt.yes?("  Do you want to delete #{Rainbow(selected_movie[:moviename]).aquamarine}")
+          @crud.get_films.delete(selected_movie)
           @crud.save_data_to_json
           puts "  ========================================"
-          puts "  #{Rainbow(seleted_movie[:moviename]).red} has been deleted from watch list"
+          puts "  #{Rainbow(selected_movie[:moviename]).red} has been deleted from watch list"
           if @prompt.yes?("  Would you like to select another movie to delete?}")
             delete_movie_on_watch_list
           else

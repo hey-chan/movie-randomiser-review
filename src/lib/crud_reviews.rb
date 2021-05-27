@@ -48,26 +48,5 @@ class CrudReview
   def clear_data()
     File.open(@file_path, 'w') {|file| file.truncate(0) }
   end
-
-
-  # def delete(film_title)
-  #   @films_to_watch.delete_if { |a| 
-  #   a.get_films[:moviename] == film_title }
-  #   # Save the data
-  #   save_data_to_json()
-  # end
-
-  def update(title, year, tag, newData)
-    newMovieObj = search_movie_with_year(title, year)
-
-    # Delete the old movie with old data
-    delete(title, year)
-
-    # Overwrite the old data
-    newMovieObj[tag.to_sym] = newData
-
-    # Save -  it will hard save in this method
-    save(newMovieObj)
-  end
   
 end
