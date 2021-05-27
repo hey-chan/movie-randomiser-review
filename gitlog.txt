@@ -1,0 +1,83 @@
+commit e67f27c329424d25556988d13741be4c8fdaf672
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Thu May 27 18:13:20 2021 +1000
+
+    final touches with application. Ensure the read feature, and delete features work
+
+commit 364ca80b03af0210871d8f6e78175414ee4c0988
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Thu May 27 02:19:47 2021 +1000
+
+    added display functionn for displaying movie reviews
+
+commit 742ab9a3d4d4bcb078e85b436260d9bf132a9a26
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Thu May 27 02:00:42 2021 +1000
+
+    reviews (add) implemented into the app
+
+commit 554ad1a01a67a2694e1ccedba1c250cc1c9e7a24
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Wed May 26 23:21:12 2021 +1000
+
+    added functions and file for reviews
+
+commit 75f264ab064819dca38e537d0e8eb06e671e4fb5
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Wed May 26 20:11:54 2021 +1000
+
+    added check feature to avoid duplicates
+
+commit 08e974af0b19bafb388d833977323199f4b4dd13
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Wed May 26 00:48:20 2021 +1000
+
+    polishing up app
+
+commit 245cd05abaf7fe1bf6cf317852602c4566fc15e0
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Wed May 26 00:41:37 2021 +1000
+
+    added delete functions
+
+commit ab5db8df00b48af43f80fd936837e555abd01f75
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Tue May 25 22:01:11 2021 +1000
+
+    added some more functionality and improved interface ui
+
+commit 6954a505dc22927fcbf9b96227fb062374fa6a05
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Mon May 24 21:01:21 2021 +1000
+
+    fixed json
+
+commit e1066bd6d97f24b12f096597eb09fdd516f540d3
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Mon May 24 20:43:02 2021 +1000
+
+    test branch
+
+commit f8121398a6534a61c4e0645f99c819dafaba25b6
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Mon May 24 20:16:54 2021 +1000
+
+    change ascii art
+
+commit f570e229fe49a38b18b7a41c8871711e20da6f01
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Mon May 24 16:28:40 2021 +1000
+
+    detail to readme
+
+commit d097e662ad099bce8636ff98d83c4e54884ac7c9
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Mon May 24 16:20:32 2021 +1000
+
+    Initial commit with JSON and other variables
+
+commit b35b8376da4e3afe0d344aaa2161faf7e02c755e
+Author: hey-chan <liumatthew8@gmail.com>
+Date:   Mon May 24 16:19:53 2021 +1000
+
+    first commit
